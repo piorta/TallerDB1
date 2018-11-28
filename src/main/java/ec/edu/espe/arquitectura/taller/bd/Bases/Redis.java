@@ -12,35 +12,29 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import redis.clients.jedis.Jedis;
 
-
-/**
- *
- * @author pc
- */
 public class Redis {
-    
-    public static void insertar() {
+
+    public void insertar() {
         long startTime = System.currentTimeMillis();
         long endTime = System.currentTimeMillis();
         //Conexion Redis
-        Jedis jedis = new Jedis("localHost");
+        Jedis jedis = new Jedis("localhost");
         //Conexion Mongo
         Morphia morphia = new Morphia();
         morphia.mapPackage("ec.edu.espe.arquitectura.taller.bd.Modelo");
-        Datastore ds = morphia.createDatastore(new MongoClient(), "Persona");
-        System.out.println("Conexion establecida");
+        Datastore ds = morphia.createDatastore(new MongoClient(), "arquitectura");
+        System.out.println("Conexion establecida Redis");
         List<Persona> persona = ds.createQuery(Persona.class)
                 .field("cedula").exists().asList();
         for (Persona p : persona) {
             p.toString();
-             jedis.set(p.getCedula()," "+p.getNombres()+" "+p.getApellidos()+
-                            " "+p.getFecha()+" "+p.getProvincia()+" "+p.getGenero()
-                    +" "+p.getEstado_civil());
-                    endTime = System.currentTimeMillis() - startTime;
+            jedis.set(p.getCedula(), " " + p.getNombres() + " " + p.getApellidos()
+                    + " " + p.getFecha() + " " + p.getProvincia() + " " + p.getGenero()
+                    + " " + p.getEstado_civil());
+            endTime = System.currentTimeMillis() - startTime;
         }
         System.out.println("Duración: " + endTime + " ms");
 
     }
 
-    
 }

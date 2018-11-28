@@ -7,6 +7,7 @@ package ec.edu.espe.arquitectura.taller.bd;
 
 import ec.edu.espe.arquitectura.taller.bd.Bases.Mongo;
 import ec.edu.espe.arquitectura.taller.bd.Bases.Postgresql;
+import ec.edu.espe.arquitectura.taller.bd.Bases.Redis;
 import java.io.IOException;
 
 /**
@@ -18,9 +19,11 @@ public class Starter {
     {
         Mongo mongo = new Mongo();
         Postgresql post = new Postgresql();
+        Redis red = new Redis();
         long start = System.currentTimeMillis();
         post.ProcesosPostgesql();
         mongo.ProcesoMongo();
+        red.insertar();
         long end = System.currentTimeMillis();
         System.out.println("Tiempo total: "+(end-start));
     }

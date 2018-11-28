@@ -17,21 +17,18 @@ import java.util.List;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
-/**
- *
- * @author Steven
- */
 public class Mongo {
+
     static Connection conn = null;
     static PreparedStatement PrepareStat = null;
 
     public void ProcesoMongo() {
         System.out.println("Conectandose a Mongo");
         Morphia morphia = new Morphia();
-        morphia.mapPackage("ec.edu.espe.arquitectura.deber.mongo.Modelo");
+        morphia.mapPackage("ec.edu.espe.arquitectura.taller.bd.Modelo");
         Datastore ds = morphia.createDatastore(new MongoClient(), "arquitectura");
         ds.ensureIndexes();
-        System.out.println("Conexión establecida");
+        System.out.println("Conexión establecida Mongo");
 
         List<Persona> pers = new ArrayList<Persona>();
         Conectar();
@@ -53,7 +50,7 @@ public class Mongo {
 
         try {
             // DriverManager: The basic service for managing a set of JDBC drivers.
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Arquitectura", "postgres", "nevets");
+            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Arquitectura", "postgres", "1234");
             //crunchifyConn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Arquitectura", "root", "nevets");
             if (conn != null) {
                 System.out.println("Conexion exitosa");

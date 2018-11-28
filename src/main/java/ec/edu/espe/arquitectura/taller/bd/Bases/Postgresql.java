@@ -16,17 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.text.StringTokenizer;
-/**
- *
- * @author Steven
- */
+
 public class Postgresql {
+
     static Connection conn = null;
     static PreparedStatement PrepareStat = null;
-    
+
     public void ProcesosPostgesql() throws IOException {
         long start_lecturaArchivo = System.currentTimeMillis();
-        File file_personas = new File("C:\\Users\\Steven\\Desktop\\archivo.txt");
+        File file_personas = new File("C:\\Users\\pc\\Desktop\\archivo.txt");
         List<String> archivo_personas = new ArrayList<String>();
         archivo_personas = FileUtils.readLines(file_personas);
         long end_lecturaArchivo = System.currentTimeMillis();
@@ -39,7 +37,7 @@ public class Postgresql {
         for (int i = 0; i < archivo_personas.size(); i++) {
             StringTokenizer st = new StringTokenizer(archivo_personas.get(i), ",");
             try {
-                insertar(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(),st.nextToken(),st.nextToken());
+                insertar(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken());
             } catch (Exception ex) {
                 System.out.println("Error de inserción");
             }
@@ -53,7 +51,7 @@ public class Postgresql {
 
         try {
             // DriverManager: The basic service for managing a set of JDBC drivers.
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Arquitectura", "postgres", "nevets");
+            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Arquitectura", "postgres", "1234");
             //crunchifyConn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Arquitectura", "root", "nevets");
             if (conn != null) {
                 System.out.println("Conexión Postgresql exitosa");
@@ -68,7 +66,7 @@ public class Postgresql {
 
     }
 
-    private static void insertar(String CEDULA, String APELLIDOS, String NOMBRES, String FECHA, String PROVINCIA,String GENERO, String ESTADO_CIVIL) {
+    private static void insertar(String CEDULA, String APELLIDOS, String NOMBRES, String FECHA, String PROVINCIA, String GENERO, String ESTADO_CIVIL) {
 
         try {
             String insertQueryStatement = "INSERT  INTO  PERSONAS  VALUES  (?,?,?,?,?,?,?)";
